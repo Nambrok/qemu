@@ -6,18 +6,6 @@ This is made up of:
 * Disabling many devices which are not needed/used.
 * Enable NVME for guest UEFI
 
-diff --git a/backends/Makefile.objs b/backends/Makefile.objs
-index 0400799..c54a903 100644
---- a/backends/Makefile.objs
-+++ b/backends/Makefile.objs
-@@ -6,5 +6,5 @@ common-obj-$(CONFIG_TPM) += tpm.o
- common-obj-y += hostmem.o hostmem-ram.o
- common-obj-$(CONFIG_LINUX) += hostmem-file.o
- 
--common-obj-y += cryptodev.o
--common-obj-y += cryptodev-builtin.o
-+common-obj-$(call lnot,$(CONFIG_XEN)) += cryptodev.o
-+common-obj-$(call lnot,$(CONFIG_XEN)) += cryptodev-builtin.o
 diff --git a/block/Makefile.objs b/block/Makefile.objs
 index 2aaede4..13b0c75 100644
 --- a/block/Makefile.objs
@@ -48,18 +36,6 @@ index 2aaede4..13b0c75 100644
  block-obj-$(CONFIG_LIBISCSI) += iscsi.o
  block-obj-$(if $(CONFIG_LIBISCSI),y,n) += iscsi-opts.o
  block-obj-$(CONFIG_LIBNFS) += nfs.o
-diff --git a/crypto/Makefile.objs b/crypto/Makefile.objs
-index 2b99e08..b505b64 100644
---- a/crypto/Makefile.objs
-+++ b/crypto/Makefile.objs
-@@ -38,3 +38,7 @@ crypto-obj-y += block-luks.o
- crypto-aes-obj-y = aes.o
- 
- stub-obj-y += pbkdf-stub.o
-+
-+# Override the previous crypto-obj-y value to avoid building most crypto
-+crypto-obj-y = hash.o
-+crypto-obj-$(if $(CONFIG_NETTLE),n,$(if $(CONFIG_GCRYPT),n,y)) += hash-glib.o
 diff --git a/default-configs/i386-softmmu.mak b/default-configs/i386-softmmu.mak
 index d2ab2f6..dd14725 100644
 --- a/default-configs/i386-softmmu.mak
@@ -148,8 +124,8 @@ index a758630..e3e5626 100644
  CONFIG_ISA_BUS=y
 -CONFIG_VIRTIO_PCI=y
 -CONFIG_VIRTIO=y
-+CONFIG_VIRTIO_PCI=n
-+CONFIG_VIRTIO=n
++CONFIG_VIRTIO_PCI=y
++CONFIG_VIRTIO=y
  CONFIG_USB_UHCI=y
  CONFIG_USB_OHCI=y
  CONFIG_USB_EHCI=y
