@@ -1,0 +1,10 @@
+diff --git a/default-configs/i386-softmmu.mak b/default-configs/i386-softmmu.mak
+index f2024c9..a22094e 100644
+--- a/default-configs/i386-softmmu.mak
++++ b/default-configs/i386-softmmu.mak
+@@ -52,3 +52,5 @@ CONFIG_USB_TABLET_WACOM=y
+ CONFIG_USB_UHCI=y
+ CONFIG_VGA_CIRRUS=y
+ CONFIG_VGA_PCI=y
++CONFIG_VIRTIO_PCI=y
++CONFIG_VIRTIO=y

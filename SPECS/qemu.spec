@@ -15,7 +15,7 @@ Summary: qemu-dm device model
 Name: qemu
 Epoch: 2
 Version: 4.2.1
-Release: %{?xsrel}.1%{?dist}
+Release: %{?xsrel}.1.1.virtio.1%{?dist}
 License: GPL
 Requires: xcp-clipboardd
 Requires: xengt-userspace
@@ -112,6 +112,8 @@ Patch83: do_not_register_xen_backend_for_qdisk.patch
 Patch84: add-an-ide-read-cache.patch
 Patch85: disable-dirty-vram-tracking.patch
 Patch86: build-configuration.patch
+
+Patch1001: Enable_virtio_8.2.patch
 
 BuildRequires: gcc
 BuildRequires: python2-devel
